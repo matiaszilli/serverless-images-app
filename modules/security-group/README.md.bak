@@ -1,0 +1,16 @@
+# AWS EC2-VPC Security Group Terraform module
+
+## Usage
+
+```hcl
+module "create_sg" {
+  source = "./modules/security-group"
+
+  create_sg = true
+  # omitted...
+}
+```
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+I_WANT_TO_BE_REPLACED
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

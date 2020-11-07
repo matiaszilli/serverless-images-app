@@ -1,0 +1,208 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "serverless-image-app",
+    "version": "1.0",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "https://h2zifu0jsc.execute-api.us-east-2.amazonaws.com/v1",
+      "description": "AWS API gateway image uploader",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/images": {
+      "put": {
+        "tags": ["Images"],
+        "summary": "Update an existing image.",
+        "description": "This method updates an existing image and it's attributes.",
+        "operationId": "updateImage",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "$ref": "#/components/parameters/category"
+          },
+          {
+            "$ref": "#/components/parameters/author"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/img"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/imageresponse"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": ["Images"],
+        "summary": "Upload a new image.",
+        "description": "This method uploads a new image with it's attributes.",
+        "operationId": "uploadImage",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/category"
+          },
+          {
+            "$ref": "#/components/parameters/author"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/img"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/imageresponse"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Image": {
+        "title": "Image",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of image"
+          },
+          "author": {
+            "type": "string",
+            "description": "Author attribute"
+          },
+          "version": {
+            "type": "string",
+            "description": "Version ID of image"
+          },
+          "date": {
+            "type": "string",
+            "description": "Image date creation"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category attribute"
+          },
+          "filename": {
+            "type": "string",
+            "description": "Filename stored in bucket"
+          },
+          "bucket": {
+            "type": "string",
+            "description": "Bucket name in which the image is stored"
+          }
+        },
+        "example": {
+          "id": "adbaeba8-2b18-4266-9602-7f41913e8ba7",
+          "author": "Jhon Lennon",
+          "version": "Ylwi86vQy1TAvzgwYkETlTUVMjOypLL8",
+          "date": "1584204570330",
+          "category": "books",
+          "filename": "adbaeba8-2b18-4266-9602-7f41913e8ba7.jpg",
+          "bucket": "examplebucket"
+        }
+      }
+    },
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "query",
+        "description": "ID of image to be updated",
+        "required": true,
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "b73c26be-a8cf-4f38-9248-6a0283e1ef1e"
+        }
+      },
+      "name": {
+        "name": "name",
+        "in": "query",
+        "description": "Name of image",
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "type": "string",
+          "example": "test.jpg"
+        }
+      },
+      "category": {
+        "name": "category",
+        "description": "The attribute Category of the image",
+        "in": "header",
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "bookimages"
+        }
+      },
+      "author": {
+        "name": "author",
+        "description": "The attribute Author of the image",
+        "in": "header",
+        "style": "simple",
+        "schema": {
+          "type": "string",
+          "example": "Andrei Murray"
+        }
+      }
+    },
+    "requestBodies": {
+      "img": {
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "required": ["img"],
+              "type": "object",
+              "properties": {
+                "img": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "required": true
+      }
+    },
+    "responses": {
+      "imageresponse": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "allOf": [{ "$ref": "#/components/parameters/id" }],
+                  "example": "adbaeba8-2b18-4266-9602-7f41913e8ba7"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "Download URL of image",
+                  "example": "https://bucketexample.s3.amazonaws.com/adbaeba8-2b18-4266-9602-7f41913e8ba7.jpg"
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Version ID of image",
+                  "example": "ThcG6JwlVfeI_aL2KBABmjD0sRqHeMaE"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
