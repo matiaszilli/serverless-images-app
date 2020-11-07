@@ -29,7 +29,7 @@ Created by Matias Zilli.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.0 |
+| terraform | >= 0.12.9 |
 | aws | 2.53.0 |
 | aws | >= 2.53.0 |
 
