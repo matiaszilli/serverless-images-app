@@ -1,0 +1,14 @@
+{
+  "name": "serverless-image-app",
+  "version": "1.0.0",
+  "description": "Simple AWS Serverless app to serve images",
+  "main": "upload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matias Zilli",
+  "license": "ISC",
+  "dependencies": {
+    "lambda-multipart-parser": "0.0.2"
+  }
+}
